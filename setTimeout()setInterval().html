@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초단위로 증가/감소 테스트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script>
+        'use strict';
+        let num = 0;
+        let timeCheck;
+
+        function numPlay(option) {
+            if (option == 'plus') {
+                num++;
+                document.getElementById('demo').innerHTML = "<font color='red'>" + num + "</font>";
+                clearTimeout(timeCheck);
+                timeCheck = setTimeout("numPlay('plus')", 1000);//함수명,제어시간 1초:1000
+            }
+            else if (option == 'minus') {
+                num--;
+                document.getElementById('demo').innerHTML = "<font color='red'>" + num + "</font>";
+                clearTimeout(timeCheck);
+                timeCheck = setTimeout("numPlay('minus')", 1000);//함수명,제어시간 1초:1000
+            }
+            else {
+                document.getElementById('demo').innerHTML = "<font color='red'>" + num + "</font> 정지합니다";
+                clearTimeout(timeCheck);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2>시간제어(setTimeout/setInterval)</h2>
+    <div>
+        <input type="button" value="증가" onclick="numPlay('plus')"/>
+        <input type="button" value="감소" onclick="numPlay('minus')"/>
+        <input type="button" value="정지" onclick="numPlay('stop')"/>
+    </div>
+</div>
+<div id="demo"></div>
+</body>
+</html>

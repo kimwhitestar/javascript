@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초단위로 증가/감소 테스트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script>
+        'use strict';
+        let timeCheck;
+
+        function clock() {
+            let today = new Date();
+            let hh = today.getHours();
+            let mm = today.getMinutes();
+            let ss = today.getSeconds();
+            document.getElementById("demo").innerText = hh + " : " + mm + " : " + ss;
+        }
+        function start() {
+            clock();
+            timeCheck = setInterval(clock, 1000);
+        }
+        function stop() {
+            clock();
+            clearInterval(timeCheck);
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2>시간제어(setTimeout/setInterval)</h2>
+    <div>
+        <input type="button" value="시작" onclick="start()"/>
+        <input type="button" value="정지" onclick="stop()"/>
+    </div>
+</div>
+<div id="demo"></div>
+</body>
+</html>

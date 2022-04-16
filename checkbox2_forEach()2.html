@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체크박스버튼</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script>
+        'use strict';
+        let seasonArr;
+        function fCheck() {
+            let seasonArr = document.testForm.season;
+            let seasonLen = document.testForm.season.length;
+            let seasonStr = "";
+            let cnt = 0;
+            console.log("seasonLen="+seasonLen);
+
+            seasonArr.forEach((season, i) => {
+                if (season.checked) {
+                    seasonStr += season.value + '/';
+                    cnt++;
+                }
+            });
+
+            if(cnt == 0) {
+                document.getElementById("demo").innerText = "계절을 선택하시오.";
+            } else {
+                document.getElementById("demo").innerHTML = "<font color='blue'>" + seasonStr +"</font>";
+            }
+        }
+        function allCheck() {
+            let seasonArr = document.testForm.season;
+            seasonArr.forEach((season, i) => {
+                season.checked = true;
+            });
+
+        }
+        function reverseCheck() {
+
+        }
+        function reverse2Check() {
+
+        }
+        function cCheck(event) {
+            if(event.checked) {
+                document.getElementById("demo").innerHTML = "<font color='blue'>" + event.value +"</font>";
+            } else {
+                document.getElementById("demo").innerHTML = "<font color='blue'>" + "선택 해제됬음"+"</font>";
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <form name="testForm" >
+        <div class="form-group">
+            <h2>체크박스버튼</h2>
+        </div>
+        <div class="form-group m-3">
+            <label for="season">좋아하는 계절?</label>
+            <div id="checkbox-group" class="form-check">
+                <div id="checkbox-group" class="form-check-label">
+                    <input type="checkbox" name="season" id="season1" value="봄" onclick="cCheck(this)"/>봄<!--form-check-input//-->
+                </div>
+                <div id="checkbox-group" class="form-check-label">
+                    <input type="checkbox" name="season" id="season2" value="여름" onclick="cCheck(this)"/>여름<!--form-check-input//-->
+                </div>
+                <div id="checkbox-group" class="form-check-label">
+                    <input type="checkbox" name="season" id="season3" value="가을" onclick="cCheck(this)"/>가을<!--form-check-input//-->
+                </div>
+                <div id="checkbox-group" class="form-check-label">
+                    <input type="checkbox" name="season" id="season4" value="겨울" onclick="cCheck(this)"/>겨울<!--form-check-input//-->
+                </div>
+            </div>
+        </div>
+        <div class="form-group m-3">
+            <input type="button" value="선택" onclick="fCheck()"/>
+            <input type="reset" value="취소"/>
+            <input type="reverse" value="선택반전" onclick="reverseCheck()"/>
+            <input type="reverse2" value="선택반전2" onclick="reverse2Check()"/>
+            <input type="button" value="모두선택" onclick="allCheck()"/>
+        </div>
+    </form>
+</div>
+<div id="demo"></div>
+</body>
+</html>

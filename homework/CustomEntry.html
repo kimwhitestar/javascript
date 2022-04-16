@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입-정규식 체크 추가</title>
+    <!--아이콘 목록 https://www.w3schools.com/icons/icons_reference.asp-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        table { border: 2px solid #e7e7e7; }
+        tfoot { background-color: #f1f1f1; padding-top: 0px; height: 35px; }
+        th { border: 2px solid #e7e7e7; background-color: #f1f1f1; text-align : right; font-size: 10pt; }
+        td { border: 2px solid #e7e7e7; } 
+        input { border: 2px solid #e7e7e7; }
+        select { border: 2px solid #e7e7e7; }
+        textarea { border: 2px solid #e7e7e7; }
+        .textField1 { width: 180px; }
+        .textField2 { width: 138px; }
+        .textField3 { width: 212px; }
+        .textField5 { width: 582px; }
+        .textField8 { width: 661px; }
+        .textField11 { width: 25px; }
+        .textField12 { width: 35px; }
+        .textField13 { width: 50px; }
+        .textField25 { width: 65px; }
+        .fieldSet { border: 3px solid #e7e7e7; background-color: #f1f1f1; width: 250px; }
+        .selectbox1 { width: 186px; }
+        .selectbox2 { width: 125px; }
+        .button { width: 100px; height: 35px; margin-top: 1em; margin-bottom: 1em;}
+        .fillButton {
+            width: 130px; 
+            height: 50px; 
+            background-color: #ddd;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+        }
+        .fillButton:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+    <script>
+        'use strict';
+        const regexNumber = /[0-9]/g; /*g:전체범위에 정규식 체크*/
+        const regexText1 = /[a-zA-Zㄱ-힇]/g;
+        const regexText2 = /[0-9a-zA-Zㄱ-힇]/g;
+        const regexText3 = /[0-9a-zA-Zㄱ-힇]_|-|\./g;/* /\d/ 숫자포함체크 /\D/ 숫자만체크 */
+        let targetNumber;
+        let targetText;
+        function regexCheck() {
+            regexNumberCheck();
+            regexTextCheck();
+        }
+        function regexTextCheck() {
+            clearMsg();
+            targetText = customEntryForm.customNm.value;
+            if (! targetText.match(regexText1)) {
+                customEntryForm.customNm.value = '';
+                document.getElementById("msg").innerText = "고객이름은 문자를 입력하세요";
+            }
+            targetText = customEntryForm.addr2.value;
+            if (! targetText.match(regexText2) ) {
+                customEntryForm.addr2.value = '';
+                document.getElementById("msg").innerText = "상세주소는 문자와 숫자를 입력하세요";
+            }
+            targetText = customEntryForm.email.value;
+            if ( ! targetText.match(regexText3) ) {
+                customEntryForm.email.value = '';
+                document.getElementById("msg").innerText = "이메일은 문자와 숫자와 기호 '_' 또는 '-' 또는 '.'을 입력하세요";
+            }
+            targetText = customEntryForm.memo.value;
+            if (! targetText.match(regexText2) ) {
+                customEntryForm.memo.value = '';
+                document.getElementById("msg").innerText = "메모는 문자와 숫자를 입력하세요";
+            }
+            return false;
+        }
+        function regexNumberCheck() {
+            clearMsg();
+            targetNumber = customEntryForm.telAreaCd.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.telAreaCd.value = '';
+                document.getElementById("msg").innerText = "전화번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.telDialNo.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.telDialNo.value = '';
+                document.getElementById("msg").innerText = "전화번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.telNo.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.telNo.value = '';
+                document.getElementById("msg").innerText = "전화번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.customId.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.customId.value = '';
+                document.getElementById("msg").innerText = "고객번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.jumin1.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.jumin1.value = '';
+                document.getElementById("msg").innerText = "주민등록번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.jumin2.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.jumin2.value = '';
+                document.getElementById("msg").innerText = "주민등록번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.hpNo1.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.hpNo1.value = '';
+                document.getElementById("msg").innerText = "핸드폰번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.hpNo2.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.hpNo2.value = '';
+                document.getElementById("msg").innerText = "핸드폰번호는 숫자를 입력하세요";
+            }
+            targetNumber = customEntryForm.hpNo3.value;
+            if (! targetNumber.match(regexNumber)) {
+                customEntryForm.hpNo3.value = '';
+                document.getElementById("msg").innerText = "핸드폰번호는 숫자를 입력하세요";
+            }
+            
+            return false;
+        }
+        function clearMsg() {
+            document.getElementById("msg").innerText = '';
+        }
+    </script>
+</head>
+<body>
+    <form name="customEntryForm" method="post" action="#">
+    <table width="806px" align="center" cellpadding="5" cellspacing="0">
+        <caption><h2>회 원 등 록</h2></caption>
+        <tr>
+            <th width="110px"><i class="fa fa-phone-square"></i> 전화번호</th>
+            <td width="300px">
+                <input type="tel" name="telAreaCd" id="telAreaCd" class="textField11" placeholder="02" autofocus />
+                - <input type="tel" name="telNo1" id="telDialNo" class="textField12" placeholder="001"/>
+                - <input type="tel" name="telNo2" id="telNo" class="textField12" placeholder="0001"/>
+            </td>
+            <td rowspan="2" colspan="2" align="center">
+                <fieldset class="fieldSet"><!--<legend><font color="#0000ff" size="5"></font></legend>-->
+                    <i class="fa fa-group"></i> 
+                    <input type="radio" name="customKindCd" id="customKindCd1"/><label for="customKindCd1">고객A</label>&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="customKindCd" id="customKindCd2" checked/><label for="customKindCd2">고객B</lable>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <th><i class="fa fa-user"></i> 고객명</th>
+            <td>
+                <input type="text" name="customId" id="customId" class="textField25" placeholder="10000001"/>
+                <input type="text" name="customNm" id="customNm" class="textField3" placeholder="고객이름"/>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="2" width="110px"><i class="fa fa-address-card-o"></i> 주소</th>
+            <td colspan="3">
+                <input type="text" name="postNo" id="postNo" class="textField25" placeholder="08200"/>
+                <input type="text" name="addr1" id="addr1" class="textField5" placeholder="도로명 주소"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="text" name="addr2" id="addr2" class="textField8" placeholder="상세 주소"/></td>
+        </tr>
+        <tr>
+            <th width="110px"><i class="fa fa-id-card-o"></i> 주민등록번호</th>            
+            <td width="300px">
+                <input type="text" name="jumin1" id="jumin1" class="textField25" placeholder="871225"/>
+                - <input type="text" name="jumin2" id="jumin2" class="textField25" placeholder="1000001"/>
+            </td>
+            <th width="110px"><i class="fa fa-birthday-cake"></i> 생년월일</th>            
+            <td>
+                <input type="number" name="birthYear" id="birthYear" placeholder="1987" min="1930" max="2000" class="textField13"/>년
+                <input type="number" name="birthMonth" id="birthMonth" placeholder="12" min="1" max="12" class="textField12"/>월
+                <input type="number" name="birthDay" id="birthDay" placeholder="25" min="1" max="31" class="textField12"/>일
+                <i class="fa fa-calendar"></i><!--include calendar-->
+            </td>
+        </tr>
+        <tr>
+            <th width="110px"><i class="fa fa-envelope"></i> E-mail</th>
+            <td width="300px">
+                <input type="text" name="email" id="email" placeholder="이메일명" class="textField2"/>
+                <label for="domain">@</label>
+                <select name="domain" id="domain" class="selectbox2">
+                    <option value="---">-선택-</option>
+                    <option value="@naver.com">naver.com</option>
+                    <option value="@daum.net">daum.net</option>
+                    <option value="@google.com" selected>google.com</option>
+                </select>
+            </td>
+            <th width="110px"><i class="fa fa-mobile" style="font-size:24px"></i> 휴대폰번호</th>            
+            <td>
+                <input type="tel" name="hpNo1" id="hpNo1" placeholder="010" class="textField11"/>
+                - <input type="tel" name="hpNo2" id="hpNo2" placeholder="0001" class="textField12"/>
+                - <input type="tel" name="hpNo3" id="hpNo3" placeholder="0001" class="textField12"/>
+                <input type="checkbox" name="sms" id="sms" checked/><label for="sms">SMS</label>
+            </td>
+        </tr>
+        <tr>
+            <th width="110px">고객등급</th>            
+            <td width="300px">
+                <select name="customGrade" id="customGrade" class="selectbox1">
+                    <option value="A">우수고객</option>
+                    <option value="B">고객</option>
+                    <option value="C" selected>비고객</option>
+                </select>
+            </td>
+            <th width="110px">고객마일리지</th>
+            <td><input type="text" name="customMile" id="customMile" placeholder="100000" class="textField1"/></td>
+        </tr>
+        <tr>
+            <th width="110px">비고</th>            
+            <td colspan="3"><textarea name="memo" id="memo" rows="3" class="textField8" placeholder="특이사항없음"></textarea></td>
+        </tr>
+        <tr>
+            <th width="110px">등록일시</th>            
+            <td colspan="3"><input type="datetime" name="createDate" id="createDate" placeholder="2022-04-10" class="textField1"/></td>
+        </tr>
+        <tfoot>
+            <td colspan="4"><div id="msg"></div></td>
+        </tfoot>
+    </table>
+    
+    <div align="center"><pre><input type="button" name="save" id="save" value="등록" class="fillButton" onclick="regexCheck();"/>     <input type="reset" name="save" id="cancel" value="취소" class="fillButton" onclick="clearMsg()"/></pre></div>
+    </form>
+</body>
+</html>

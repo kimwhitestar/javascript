@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라디오버튼</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script>
+        'use strict'
+        function fCheck() {
+            let season = document.testForm.season.value;
+            let len = document.testForm.season.length;
+            console.log("len="+len + "value=" +season);
+
+            if(season == '') {
+                document.getElementById("demo").innerText = "계절을 선택하시오.";
+            } else {
+                document.getElementById("demo").innerHTML = "<font color='blue'>"+season+"</font>";
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <form name="testForm" >
+        <div><!--form-group//-->
+            <h2>라디오버튼</h2>
+        </div>
+        <div><!--form-group m-3//-->
+            <label for="season">좋아하는 계절?</label>
+            <div id="radio-group"><!--form-check//-->
+                <div id="radio-group"><!--form-check-label//-->
+                    <input type="radio" name="season" id="season1" value="봄"/>봄<!--form-check-input//-->
+                </div>
+                <div id="radio-group"><!--form-check-label//-->
+                    <input type="radio" name="season" id="season2" value="여름"/>여름<!--form-check-input//-->
+                </div>
+                <div id="radio-group"><!--form-check-label//-->
+                    <input type="radio" name="season" id="season3" value="가을"/>가을<!--form-check-input//-->
+                </div>
+                <div id="radio-group"><!--form-check-label//-->
+                    <input type="radio" name="season" id="season4" value="겨울"/>겨울<!--form-check-input//-->
+                </div>
+            </div>
+        </div>
+        <div><!--form-group m-3//-->
+            <input type="button" value="선택" onclick="fCheck()"/>
+            <input type="reset" value="취소"/>
+        </div>
+    </form>
+</div>
+<div id="demo"></div>
+</body>
+</html>
