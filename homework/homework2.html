@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인터넷 계산기 만들기</title><!--https://www.w3schools.com/bootstrap4/bootstrap_cards.asp-->
+    <script>
+    'use strict';
+    var number = new Array();
+    var operation = new Array();//operation.length = number.length-1
+    let result = 0;
+    function setNumber(num) {
+        let viewNumber = document.getElementById("viewNumber").innerText;
+        let numbers = document.getElementById("number").innerText;
+        if (20 <= viewNumber.length) 
+            return false;
+        if (0 == numbers.length && 0 == num) 
+            return false;
+        document.getElementById("viewNumber").innerText = viewNumber + num;
+        document.getElementById("number").innerText += num;
+    }
+    function operate(op) {
+        let viewNumber = document.getElementById("viewNumber").innerText;
+
+        //연산자를 2번 이상 연속해서 눌렀을 대
+        if ('' == document.getElementById("number").innerText) {
+            if (20 == viewNumber.length) {
+                let lastNumbers = viewNumber.charAt(viewNumber.length -1);
+                let patternNumber = "[0-9]";
+                if (! lastNumbers.match(patternNumber)) {
+                    //마지막 문자(연산자) 삭제
+                    document.getElementById("viewNumber").innerText = viewNumber.slice(0, viewNumber.length -1); 
+
+                    if (0 < number.length) {
+                        lastNumbers = number[number.length -1];
+                        document.getElementById("number").innerText = lastNumbers;
+
+                        console.log("숫자배열의 마지막방 삭제 전 number.length = "+number.length);
+                        number.pop(number.length -1);//숫자배열의 마지막방 삭제
+                        console.log("숫자배열의 마지막방 삭제 후 number.length = "+number.length);
+                    }
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            if (20 <= viewNumber.length) 
+                return false;
+        }
+        document.getElementById("viewNumber").innerText += op;
+        number.push(eval(document.getElementById("number").innerText));
+        document.getElementById("number").innerText = '';
+        operation.push(op);
+    }
+    /*음의 실수는 에러발생: NaN, undefine
+     *머리아파~ ㅜㅗㅜ 시간없어서 여기까지..
+     */
+    function calc() {
+        //연산자를 누른 후 '='을 눌러 계산을 하려고 할 때
+        if ('' == document.getElementById("number").innerText) return false;
+
+        //document.getElementById("viewNumber").innerText += '=';
+        number.push(eval(document.getElementById("number").innerText));
+        document.getElementById("number").innerText = '';
+
+        //연산할 숫자, 연산자 최소 존재유무 체크
+        if (1 < number.length && 0 < operation.length) 
+            result = number[0];
+        else 
+            return false;
+
+        operation.forEach((operation, i) => {
+            switch(operation) {
+                case '+' : result += number[i+1]; break;
+                case '-' : result -= number[i+1]; break;
+                case '*' : result *= number[i+1]; break;
+                case '/' : result /= number[i+1]; break;
+                case '%' : result %= number[i+1]; break;
+                default : alert('연산자가 부적합합니다'); return false;
+            }
+        });
+        /*
+        for (let i=0; i<operation.length; i++) {
+            switch(operation[i]) {
+                case '+' : result += number[i+1]; break;
+                case '-' : result -= number[i+1]; break;
+                case '*' : result *= number[i+1]; break;
+                case '/' : result /= number[i+1]; break;
+                case '%' : result %= number[i+1]; break;
+                default : alert('연산자가 부적합합니다'); return false;
+            }
+        }
+        */
+        document.getElementById("viewNumber").innerText = result;
+        document.getElementById("number").innerText = result;
+        number.splice(0);
+        operation.splice(0);
+        console.log("*** calc() 연산 실행 후 처리 *** \n 숫자 배열 모두 삭제 후 number.length = " + number.length);
+        console.log("*** calc() 연산 실행 후 처리 *** \n 연산자 배열 모두 삭제 후 operation.length = " + operation.length);
+    }
+    function backspace() {
+        let viewNumber = document.getElementById("viewNumber").innerText;
+        let lastNumbers = document.getElementById("number").innerText;
+        if ('' == lastNumbers) {
+            if ('' == viewNumber) {
+                return false;
+            } else {
+                //마지막 문자(연산자) 삭제
+                document.getElementById("viewNumber").innerText = viewNumber.slice(0, viewNumber.length -1);
+
+                if (0 < number.length) {
+                    lastNumbers = number[number.length -1];
+                    document.getElementById("number").innerText = lastNumbers;
+
+                    console.log("숫자배열의 마지막방 삭제 전 number.length = "+number.length);
+                    number.pop(number.length -1);//숫자배열의 마지막방 삭제
+                    console.log("숫자배열의 마지막방 삭제 후 number.length = "+number.length);
+                }
+            }
+        } else {
+                //마지막 숫자 삭제
+                document.getElementById("viewNumber").innerText = viewNumber.slice(0, viewNumber.length -1);
+                document.getElementById("number").innerText = lastNumbers.slice(0, lastNumbers.length -1);
+        }
+    }
+    function clean() {
+        document.getElementById("viewNumber").innerText = '';
+        document.getElementById("number").innerText = '';
+        number.splice(0);
+        operation.splice(0);
+        console.log("*** clean() 실행 후 처리 *** \n 숫자 배열 모두 삭제 후 number.length = " + number.length);
+        console.log("*** clean() 실행 후 처리 *** \n 연산자 배열 모두 삭제 후 operation.length = " + operation.length);
+    }
+    </script>
+</head>
+<body>
+    <form name="myForm">
+        <table border="1" align="center">
+            <tr>
+                <td rowspan="2" colspan="3"><p>
+                    <div id="viewNumber"></div>
+                </p></td>
+                <td width="58" height="31" align="center">
+                    <div width="25" onmouseenter="backspace()">←</div>
+                </td>
+            </tr>
+            <tr>
+                <td width="58" height="31" align="center">
+                    <div width="25" onmouseenter="clean()">clear</div>
+                </td>
+            </tr>
+            <tr>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('1')">1</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('2')">2</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('3')">3</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="operate('+')">+</div></td>
+            </tr>
+            <tr>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('4')">4</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('5')">5</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('6')">6</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="operate('-')">-</div></td>
+            </tr>
+            <tr>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('7')">7</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('8')">8</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('9')">9</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="operate('*')">*</div></td>
+            </tr>
+            <tr>
+                <td width="58" height="58" align="center"><div onmouseenter="operate('%')">%</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="setNumber('0')">0</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="calc()">=</div></td>
+                <td width="58" height="58" align="center"><div onmouseenter="operate('/')">/</div></td>
+            </tr>
+        </table>
+        <div id="number"></div>
+    </form>
+</body>
+</html>
